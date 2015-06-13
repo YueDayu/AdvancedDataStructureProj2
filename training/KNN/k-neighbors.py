@@ -8,7 +8,7 @@ from collections import Counter
 def readfile(filename):
     list_file = open(filename, 'r')
     temp = list_file.readlines()
-    list_num = int(temp[0]) + 1
+    list_num = int((temp[0]).split(' ')[0]) + 1
     namelist = []
     feature_list = []
     for x in range(1, list_num):
