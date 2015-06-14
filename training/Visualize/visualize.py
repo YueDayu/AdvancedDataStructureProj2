@@ -34,8 +34,8 @@ def load_feature(filename):
 
 
 def plot_embedding(X, y, title=None, shownum=False):
-    x_min, x_max = np.min(X, 0), np.max(X, 0)
-    X = (X - x_min) / (x_max - x_min)
+#    x_min, x_max = np.min(X, 0), np.max(X, 0)
+#    X = (X - x_min) / (x_max - x_min)
 
     cm = plt.cm.Set1
     plt.figure()
@@ -46,7 +46,8 @@ def plot_embedding(X, y, title=None, shownum=False):
                      color=plt.cm.Set1(y[i] / 10.),
                      fontdict={'weight': 'bold', 'size': 9})
     else:
-        ax.scatter(X[:, 0], X[:, 1], marker='x', c=y, cmap=cm, alpha = 0.6)
+        for i in range(0, 5):
+            ax.scatter(X[i::5, 0], X[i::5, 1], marker='x', c=y[i::5], cmap=cm, alpha = 0.5)
     plt.xticks([]), plt.yticks([])
     if title is not None:
         plt.title(title)
@@ -57,10 +58,11 @@ def visualize(X, y):
     X2 = X.copy()
     X2.flat[::X.shape[1] + 1] += 0.01  # Make X invertible
     t0 = time()
-    X_lda = lda.LDA(solver='eigen', n_components=2).fit_transform(X2, y)
+    X_lda = lda.LDA(n_components=2).fit_transform(X2, y)
     plot_embedding(X_lda, y,
                    "Linear Discriminant projection (time %.2fs)" %
-                   (time() - t0), shownum = False)
+                   (time() - t0))
+
     plt.show()
 
 if __name__ == '__main__':
