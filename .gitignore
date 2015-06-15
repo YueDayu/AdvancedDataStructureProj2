@@ -15,5 +15,10 @@ training/NeuralNetwork/*.pkl
 training/NeuralNetwork/*.npy
 training/NeuralNetwork/*.txt
 training/NeuralNetwork/*.pyc
+training/Compare/.idea
+training/Compare/*.pkl
+training/Compare/*.npy
+training/Compare/*.txt
+training/Compare/*.pyc
 list/*.txt
 training/Visualize/*.txt
