@@ -78,19 +78,19 @@ def max_index(list):
 def neural_train(filename, testfile, output):
     tag, data = readfile(filename)
     testtag, testdata = readfile(testfile)
-    net = buildNetwork(len(data[0]), 80, 20, 10)
+    net = buildNetwork(len(data[0]), 80, 10)
     ds = SupervisedDataSet(len(data[0]), 10)
     for x in range(0, len(data)):
         ds.addSample(data[x], trans(tag[x]))
     testds = SupervisedDataSet(len(data[0]), 10)
     for x in range(0, len(testdata)):
         testds.addSample(testdata[x], trans(testtag[x]))
-    trainer = BackpropTrainer(net, ds)
+    trainer = BackpropTrainer(net, ds, learningrate = 0.001, momentum = 0.99)
     print "training..."
     trainer.trainUntilConvergence(verbose=True,
                               trainingData=ds,
                               validationData=testds,
-                              maxEpochs=30)
+                              maxEpochs=500)
     print "done"
     NetworkWriter.writeToFile(net, output)
 
