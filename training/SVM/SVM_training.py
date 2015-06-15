@@ -23,7 +23,7 @@ def readfile(filename):
 
 def svm_train(filename, output):
     tag, data = readfile(filename)
-    clf = svm.SVC()
+    clf = svm.SVC(kernel='linear')
     clf.fit(data, tag)
     print clf
     joblib.dump(clf, output + '.pkl')
