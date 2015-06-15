@@ -1,7 +1,6 @@
 __author__ = 'Yue Dayu'
 
 from sklearn import ensemble
-from sklearn.externals import joblib
 import cPickle
 import numpy as np
 import sys
@@ -23,7 +22,7 @@ def readfile(filename):
 def random_forset_train(filename, output):
     tag, data = readfile(filename)
     clf = ensemble.RandomForestClassifier(500)
-    clf.fit(data, tag)
+    clf.fit_transform(data, tag)
     print clf
     with open(output, 'wb') as f:
         cPickle.dump(clf, f)
