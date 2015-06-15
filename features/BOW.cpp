@@ -29,7 +29,7 @@ void BOW::saveToFile(const char *filename) {
 }
 
 void BOW::train(const char *imagepath, const char *imagelists) {
-    BOWKMeansTrainer trainer = BOWKMeansTrainer(500);
+    BOWKMeansTrainer trainer = BOWKMeansTrainer(200);
     Ptr<DescriptorExtractor> desext = SIFT::create();
     vector<KeyPoint> kps;
     Mat desp;
