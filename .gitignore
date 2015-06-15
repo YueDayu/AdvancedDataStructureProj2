@@ -22,3 +22,4 @@ training/Compare/*.txt
 training/Compare/*.pyc
 list/*.txt
 training/Visualize/*.txt
+training/NeuralNetwork/*.xml
