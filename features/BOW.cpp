@@ -1,23 +1,33 @@
 #include "BOW.h"
 #include <opencv2/xfeatures2d.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/features2d.hpp>
+#include <opencv2/saliency.hpp>
 
 using namespace cv;
 using namespace cv::xfeatures2d;
+using namespace saliency;
 using namespace std;
 
 void BOW::calc(cv::Mat & img, Feature & feat){
-    if (img.cols > 300 || img.rows > 300)
+    Mat rimg;
+    if (img.rows > 100 && img.cols > 100)
+        rimg = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
+    else
+        rimg = img;
+    if (rimg.cols > 300 || rimg.rows > 300)
     {
-        double fr = min(300.0/img.rows, 300.0/img.cols);
-        resize(img, img, Size(), fr, fr, INTER_AREA);
+        double fr = min(300.0/rimg.rows, 300.0/rimg.cols);
+        resize(rimg, rimg, Size(), fr, fr, INTER_AREA);
     }
+    GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
     vector<KeyPoint> kps;
-    m_fd->detect(img, kps);
+    m_fd->detect(rimg, kps);
     Mat res;
-    m_ext->compute(img, kps, res);
+    m_ext->compute(rimg, kps, res);
     feat.clear();
     for (int i = 0; i < m_ext->descriptorSize(); ++i)
-        feat.push_back(res.at<uchar>(0, i));
+        feat.push_back((double)res.at<uchar>(0, i)/kps.size());
 }
 
 void BOW::loadFromFile(const char *filename) {
@@ -56,7 +66,7 @@ void BOW::saveToFile(const char *filename) {
 }
 
 void BOW::train(const char *imagepath, const char *imagelists) {
-    BOWKMeansTrainer trainer = BOWKMeansTrainer(60);
+    BOWKMeansTrainer trainer = BOWKMeansTrainer(200);
     Ptr<DescriptorExtractor> desext = SIFT::create();
     vector<KeyPoint> kps;
     Mat desp;
@@ -79,17 +89,23 @@ void BOW::train(const char *imagepath, const char *imagelists) {
         }
         sprintf(fullpath, "%s%s", imagepath, filename);
         img = imread(fullpath);
+        if (img.rows > 100 && img.cols > 100)
+            img = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
         if (img.cols > 300 || img.rows > 300)
         {
             double fr = min(300.0/img.rows, 300.0/img.cols);
             resize(img, img, Size(), fr, fr, INTER_AREA);
         }
+        GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
         m_fd->detect(img, kps);
+//        Mat show;
+//        drawKeypoints(img, kps, show);
+//        imshow("", show);
+//        waitKey();
         desext->compute(img, kps, desp);
         static int idx[5000];
         for (int j = 0; j < desp.rows; ++j) idx[j] = j;
-        int selectedkp = (
-                int)(desp.rows * kpratio);
+        int selectedkp = (int)(desp.rows * kpratio);
         for (int j = 0; j < selectedkp; ++j)
         {
             int r = rand() % (desp.rows - j);

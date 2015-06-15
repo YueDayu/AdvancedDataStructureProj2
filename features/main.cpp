@@ -27,9 +27,10 @@ int main(int argc, char** argv )
 	FeatureExtractor *ext = new ComFeature();
     BOW *bow = new BOW();
 	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
-    //bow->train(imagepath, imagelists);
-    //bow->saveToFile(outputvoc);
-    bow->loadFromFile(outputvoc);
+    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
+    bow->train(imagepath, imagelists);
+    bow->saveToFile(outputvoc);
+    //bow->loadFromFile(outputvoc);
     //FeatureExtractor *ext = new ColorPerspec;
     Feature feat;
     Mat im;
