@@ -5,7 +5,8 @@ from collections import Counter
 
 def svm_predict(filename, train_file, output):
     type_list, data = readfile(filename)
-    clf = joblib.load(train_file)
+    with open(train_file, 'rb') as f:
+        clf = cPickle.load(f)
     result = clf.predict(data)
     num = 0
     i = 0

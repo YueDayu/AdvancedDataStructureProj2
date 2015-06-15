@@ -1,11 +1,9 @@
 __author__ = 'Yue Dayu'
 
 from sklearn import svm
-from sklearn.externals import joblib
+import cPickle
 import numpy as np
 import sys
-
-# print clf.predict([[2., 2.], [-1, -1]])
 
 def readfile(filename):
     list_file = open(filename, 'r')
@@ -26,7 +24,8 @@ def svm_train(filename, output):
     clf = svm.SVC(kernel='linear')
     clf.fit(data, tag)
     print clf
-    joblib.dump(clf, output)
+    with open(output, 'wb') as f:
+        cPickle.dump(clf, f)
 
 if __name__ == '__main__':
     svm_train(sys.argv[1], sys.argv[2])
