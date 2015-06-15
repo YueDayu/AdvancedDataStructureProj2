@@ -4,3 +4,4 @@ training/SVM/.idea
 training/SVM/*.pkl
 training/SVM/*.npy
 training/SVM/*.txt
+training/SVM/*.pyc
