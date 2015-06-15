@@ -288,3 +288,33 @@ void ZImage::OutputFeature(ofstream& output)
 	}
     output << endl;
 }
+
+void ZImage::OutputFeature(vector<double> &vec) {
+	vec.clear();
+	for (int i = 1; i <= objectcount; i++)
+	{
+		if (objectarea[i] > w * h * 0.01)
+		{
+			vec.push_back(objectaveragecolor[i].x);
+			vec.push_back(objectaveragecolor[i].y);
+			vec.push_back(objectaveragecolor[i].z);
+			vec.push_back(objectcenterx[i] * 1.0 / h);
+			vec.push_back(objectcentery[i] * 1.0 / w);
+			vec.push_back(objectarea[i] * 1.0 / h / w);
+			if (w > h)
+			{
+				vec.push_back(sqrt((objectx2[i] + objecty2[i]) * 1.0 / objectarea[i]) / w);
+			}
+			else
+			{
+				vec.push_back(sqrt((objectx2[i] + objecty2[i]) * 1.0 / objectarea[i]) / h);
+			}
+			double res = objectx2[i] + objecty2[i] -
+						  sqrt(1.0 * (objectx2[i] - objecty2[i]) * (objectx2[i] - objecty2[i]) +
+							   4.0 * objectxy[i] * objectxy[i]) /
+					(objectx2[i] + objecty2[i] +
+					sqrt(1.0 * (objectx2[i] - objecty2[i]) * (objectx2[i] - objecty2[i]) + 4.0 * objectxy[i] * objectxy[i]));
+			vec.push_back(res);
+		}
+	}
+}

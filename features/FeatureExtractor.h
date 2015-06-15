@@ -14,7 +14,6 @@ public:
 	int dim() const { return m_data.size(); }
 	void clear() { m_data.clear(); }
 	void push_back(Elemtype x) { m_data.push_back(x); }
-private:
 	std::vector<Elemtype> m_data;
 };
 

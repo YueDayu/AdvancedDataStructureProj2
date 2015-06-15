@@ -6,7 +6,7 @@ double PictureSimilarity(string file1, string file2)
 	ifstream q, i;
 	q.open(file1);
 	i.open(file2);
-	Feature qfeature[MaxFeature], ifeature[MaxFeature];
+	ShapeFeature qfeature[MaxFeature], ifeature[MaxFeature];
 	int qcount = 0, icount = 0;
 	double s[MaxFeature][MaxFeature];
 	bool quse[MaxFeature], iuse[MaxFeature];
@@ -74,7 +74,7 @@ double PictureSimilarity(string file1, string file2)
 	return result;
 }
 
-double FeatureSimilarity(Feature &f1, Feature &f2)
+double FeatureSimilarity(ShapeFeature &f1, ShapeFeature &f2)
 {
 	double s1, s2, s3;
 	s1 = exp(-((f1.c1 - f2.c1) * (f1.c1 - f2.c1) + (f1.c2 - f2.c2) * (f1.c2 - f2.c2) + (f1.c3 - f2.c3) * (f1.c3 - f2.c3)) / 3 / sigma1);

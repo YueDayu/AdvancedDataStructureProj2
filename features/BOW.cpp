@@ -3,6 +3,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
 #include <opencv2/saliency.hpp>
+#include "BGReplace.h"
 
 using namespace cv;
 using namespace cv::xfeatures2d;
@@ -89,19 +90,20 @@ void BOW::train(const char *imagepath, const char *imagelists) {
         }
         sprintf(fullpath, "%s%s", imagepath, filename);
         img = imread(fullpath);
-        if (img.rows > 100 && img.cols > 100)
-            img = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
+//        if (img.rows > 100 && img.cols > 100)
+//            img = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
         if (img.cols > 300 || img.rows > 300)
         {
             double fr = min(300.0/img.rows, 300.0/img.cols);
             resize(img, img, Size(), fr, fr, INTER_AREA);
         }
-        GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
+        //GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
+        ImgBGReplace(img, img);
         m_fd->detect(img, kps);
-//        Mat show;
-//        drawKeypoints(img, kps, show);
-//        imshow("", show);
-//        waitKey();
+        Mat show;
+        drawKeypoints(img, kps, show);
+        imshow("", show);
+        waitKey();
         desext->compute(img, kps, desp);
         static int idx[5000];
         for (int j = 0; j < desp.rows; ++j) idx[j] = j;

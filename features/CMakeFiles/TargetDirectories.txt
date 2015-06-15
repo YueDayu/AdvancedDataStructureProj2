@@ -1,0 +1,2 @@
+D:/950623/proj2/AdvancedDataStructureProj2/features/CMakeFiles/ImageRetrival_WHP.dir
+D:/950623/proj2/AdvancedDataStructureProj2/features/CMakeFiles/genfeatures.dir

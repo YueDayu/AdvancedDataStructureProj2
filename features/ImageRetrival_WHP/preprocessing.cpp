@@ -1,9 +1,10 @@
 #include "preprocessing.h"
 #include <opencv2/opencv.hpp>
 
-ZImage* preprocessing(string filepath)
+ZImage* preprocessing(const Mat img)
 {
-	Mat src = imread(filepath, 1);
+	Mat src;
+	img.copyTo(src);
 	if (src.rows > 300 || src.cols > 300)
 	{
 		double fr = min(300.0/src.rows, 300.0/src.cols);
@@ -17,5 +18,6 @@ ZImage* preprocessing(string filepath)
 	//imshow("原图像(已进行高斯模糊)", s);
 	cvtColor(s, src, CV_BGR2HSV);
 	ZImage* z = new ZImage(src);
+	cvtColor(s, src, CV_HSV2BGR);
 	return z;
 }

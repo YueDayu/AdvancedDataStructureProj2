@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __FEATURE_H__
+#define __FEATURE_H__
+
 #include <cv.h>
 #include <highgui.h>
 #include <cmath>
@@ -10,7 +12,7 @@ using namespace std;
 
 #define MaxFeature 500
 
-struct Feature
+struct ShapeFeature
 {
 	double c1, c2, c3, x, y, p, v, e;
 };
@@ -26,4 +28,6 @@ struct Feature
 #define w3 (1. / 3)
 
 extern double PictureSimilarity(string file1, string file2);//·µ»ØÁ½¸öÍ¼Ïñ¾àÀë
-extern double FeatureSimilarity(Feature &f1, Feature &f2);
+extern double FeatureSimilarity(ShapeFeature &f1, ShapeFeature &f2);
+
+#endif

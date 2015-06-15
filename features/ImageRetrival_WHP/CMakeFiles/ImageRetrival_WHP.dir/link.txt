@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe cq libImageRetrival_WHP.a  CMakeFiles/ImageRetrival_WHP.dir/feature.cpp.obj CMakeFiles/ImageRetrival_WHP.dir/hsv.cpp.obj CMakeFiles/ImageRetrival_WHP.dir/preprocessing.cpp.obj
+C:\MinGW\bin\ranlib.exe libImageRetrival_WHP.a

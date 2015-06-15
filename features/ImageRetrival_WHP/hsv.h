@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __HSV__H__
+#define __HSV__H__
 #include <cv.h>
 #include <highgui.h>
 #include <cmath>
@@ -132,4 +133,7 @@ public:
 	void RegionGrowingDFS(int x, int y, int &id);
 	void GetFeature();
 	void OutputFeature(ofstream&);
+	void OutputFeature(vector<double>&);
 };
+
+#endif

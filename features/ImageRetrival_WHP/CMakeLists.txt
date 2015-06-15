@@ -12,9 +12,8 @@ set(SOURCE_FILES
     hsv.cpp
     hsv.h
     preprocessing.cpp
-    preprocessing.h
-    test.cpp)
+    preprocessing.h)
 
-add_executable(ImageRetrival_WHP ${SOURCE_FILES})
+add_library(ImageRetrival_WHP ${SOURCE_FILES})
 
 target_link_libraries( ImageRetrival_WHP ${OpenCV_LIBS} )
