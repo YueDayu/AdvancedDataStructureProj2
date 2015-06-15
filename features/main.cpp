@@ -21,12 +21,15 @@ int main(int argc, char** argv )
     char* imagelists = argv[2];
     char* imagepath = argv[1];
     const char outputfile[] = "output\\imagefeatures_out.txt";
+    const char outputvoc[] = "output\\vocabulary.txt";
 
     char filename[100], fullpath[100];
 	FeatureExtractor *ext = new ComFeature();
     BOW *bow = new BOW();
 	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
-    bow->train(imagepath, imagelists);
+    //bow->train(imagepath, imagelists);
+    //bow->saveToFile(outputvoc);
+    bow->loadFromFile(outputvoc);
     //FeatureExtractor *ext = new ColorPerspec;
     Feature feat;
     Mat im;

@@ -21,15 +21,42 @@ void BOW::calc(cv::Mat & img, Feature & feat){
 }
 
 void BOW::loadFromFile(const char *filename) {
-
+    printf("Reading vocabulary from file...");
+    FILE *fs = fopen(filename, "r");
+    int rows;
+    float x;
+    fscanf(fs, "%d", &rows);
+    Mat voc(rows, 128, CV_32FC1);
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < voc.cols; ++j)
+        {
+            fscanf(fs, "%f ", &x);
+            voc.at<float>(i, j) = x;
+        }
+    }
+    fclose(fs);
+    m_ext->setVocabulary(voc);
+    printf("Complete\n");
 }
 
 void BOW::saveToFile(const char *filename) {
-
+    printf("Saving vocabulary to file...");
+    FILE *fs = fopen(filename, "w");
+    const Mat& voc = m_ext->getVocabulary();
+    fprintf(fs, "%d\n", voc.rows);
+    for (int i = 0; i < voc.rows; ++i)
+    {
+        for (int j = 0; j < voc.cols; ++j)
+            fprintf(fs, "%f ", voc.at<float>(i, j));
+        fprintf(fs, "\n");
+    }
+    fclose(fs);
+    printf("Complete\n");
 }
 
 void BOW::train(const char *imagepath, const char *imagelists) {
-    BOWKMeansTrainer trainer = BOWKMeansTrainer(200);
+    BOWKMeansTrainer trainer = BOWKMeansTrainer(60);
     Ptr<DescriptorExtractor> desext = SIFT::create();
     vector<KeyPoint> kps;
     Mat desp;
