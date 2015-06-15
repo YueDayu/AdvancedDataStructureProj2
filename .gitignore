@@ -10,3 +10,5 @@ training/RandomForest/*.pkl
 training/RandomForest/*.npy
 training/RandomForest/*.txt
 training/RandomForest/*.pyc
+list/*.txt
+training/Visualize/*.txt
