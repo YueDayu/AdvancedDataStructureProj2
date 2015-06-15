@@ -1,2 +1,5 @@
 features/.idea
 training/KNN/.idea
+training/SVM-training/.idea
+training/SVM-training/*.pkl
+training/SVM-training/*.npy
