@@ -10,5 +10,10 @@ training/RandomForest/*.pkl
 training/RandomForest/*.npy
 training/RandomForest/*.txt
 training/RandomForest/*.pyc
+training/NeuralNetwork/.idea
+training/NeuralNetwork/*.pkl
+training/NeuralNetwork/*.npy
+training/NeuralNetwork/*.txt
+training/NeuralNetwork/*.pyc
 list/*.txt
 training/Visualize/*.txt
