@@ -54,7 +54,6 @@ def plot_embedding(X, y, title=None, shownum=False):
 
 
 def visualize(X, y):
-    print("Computing LDA projection")
     X2 = X.copy()
     X2.flat[::X.shape[1] + 1] += 0.01  # Make X invertible
     t0 = time()
@@ -62,7 +61,6 @@ def visualize(X, y):
     plot_embedding(X_lda, y,
                    "Linear Discriminant projection (time %.2fs)" %
                    (time() - t0))
-
     plt.show()
 
 if __name__ == '__main__':

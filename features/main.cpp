@@ -1,6 +1,7 @@
 #include "ColorHistogram.h"
 #include "ColorMean.h"
 #include "CombinedFeature.h"
+#include "BOW.h"
 
 #include <opencv2/opencv.hpp>
 
@@ -21,16 +22,17 @@ int main(int argc, char** argv )
     char* imagepath = argv[1];
     const char outputfile[] = "output\\imagefeatures_out.txt";
 
-    FILE *fin = fopen(imagelists, "r");
-    FILE *fout = fopen(outputfile, "w");
     char filename[100], fullpath[100];
 	FeatureExtractor *ext = new ComFeature();
-	dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
-	dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
+    BOW *bow = new BOW();
+	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
+    bow->train(imagepath, imagelists);
     //FeatureExtractor *ext = new ColorPerspec;
     Feature feat;
     Mat im;
     int numimg;
+    FILE *fin = fopen(imagelists, "r");
+    FILE *fout = fopen(outputfile, "w");
     fscanf(fin, "%d", &numimg);
     fgets(filename, 100, fin);
     fprintf(fout, "%d\n", numimg);
