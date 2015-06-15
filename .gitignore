@@ -5,3 +5,8 @@ training/SVM/*.pkl
 training/SVM/*.npy
 training/SVM/*.txt
 training/SVM/*.pyc
+training/RandomForest/.idea
+training/RandomForest/*.pkl
+training/RandomForest/*.npy
+training/RandomForest/*.txt
+training/RandomForest/*.pyc
