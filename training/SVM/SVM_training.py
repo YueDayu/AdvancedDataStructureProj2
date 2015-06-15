@@ -26,7 +26,7 @@ def svm_train(filename, output):
     clf = svm.SVC(kernel='linear')
     clf.fit(data, tag)
     print clf
-    joblib.dump(clf, output + '.pkl')
+    joblib.dump(clf, output)
 
 if __name__ == '__main__':
     svm_train(sys.argv[1], sys.argv[2])
