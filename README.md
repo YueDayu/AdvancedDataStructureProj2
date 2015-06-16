@@ -7,4 +7,5 @@ Usage: to run the whole testing process, type
 	run.py <test image path>
 
 e.g
+
 	run.py ./ir/
