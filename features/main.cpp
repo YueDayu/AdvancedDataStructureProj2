@@ -29,8 +29,8 @@ int main(int argc, char** argv )
 	FeatureExtractor *ext = new ComFeature();
     BOW *bow = new BOW();
 	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
-    //dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
-    //dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
+    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
+    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
     //dynamic_cast<ComFeature*>(ext)->addFeature(new ShapeDescriptor);
     //bow->train(imagepath, imagelists);
     //bow->saveToFile(outputvoc);
