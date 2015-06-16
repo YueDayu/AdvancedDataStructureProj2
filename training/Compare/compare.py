@@ -47,7 +47,7 @@ def compare(filename0, filename1, train_file_0, train_file_1, output):
     random_1_res_rate = random_clf1.predict_proba(data1)
     random_1_res = random_clf1.classes_
     for x in range(0, len(data0)):
-        if max(random_0_res_rate[x]) > (max(random_1_res_rate[x]) - 0.11):
+        if max(random_0_res_rate[x]) > (max(random_1_res_rate[x])):
             result = random_0_res[max_index(random_0_res_rate[x])][0]
             num1 += 1
             if result == type_list0[x]:

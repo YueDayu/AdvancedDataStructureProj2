@@ -131,6 +131,25 @@ def random_forest_single_predict(test_filename, name, feature_file, train_file, 
     print classification_result, average_list
     return classification_result, average_list
 
+def random_forset_predict_for_pr(filename, train_file, output):
+    print "reading the file..."
+    type_list, data = readfile(filename)
+    print "done"
+    with open(train_file, 'rb') as f:
+        clf = cPickle.load(f)
+    result = clf.predict(data)
+    num = 0
+    i = 0
+    output_file = open(output, 'w')
+    for x in result:
+        output_file.write(type_list[i])
+        output_file.write("\t")
+        output_file.write(x)
+        output_file.write('\n')
+        i += 1
+    output_file.close()
+
 if __name__ == '__main__':
-    random_forset_predict(sys.argv[1], sys.argv[2], sys.argv[3])
+    # random_forset_predict(sys.argv[1], sys.argv[2], sys.argv[3])
     # random_forest_single_predict(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], int(sys.argv[5]))
+    random_forset_predict_for_pr(sys.argv[1], sys.argv[2], sys.argv[3])
