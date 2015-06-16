@@ -1,6 +1,7 @@
 #include "ColorHistogram.h"
 
 #include <opencv2/opencv.hpp>
+#include "BGReplace.h";
 
 using namespace cv;
 
@@ -9,7 +10,9 @@ ColorHist::ColorHist(int _hbin, int _sbin, int _vbin) :
 
 void ColorHist::calc(Mat& im, Feature& res)
 {
-	Mat hsv = im;
+	Mat hsv;
+	im.copyTo(hsv);
+	//GaussianBlur(hsv, hsv, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
 	cvtColor(im, hsv, COLOR_BGR2HSV);
 	int histsize[] = {hbin, sbin, vbin};
 	const float hrange[] = {0, 180};
@@ -17,6 +20,7 @@ void ColorHist::calc(Mat& im, Feature& res)
 	const float vrange[] = {0, 256};
 	const float *ranges[] = {hrange, srange, vrange};
 	int channels[] = {0, 1, 2};
+
 	MatND hist;
 	calcHist(&hsv, 1, channels, Mat(), hist, 3, histsize, ranges);
 

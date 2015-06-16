@@ -29,8 +29,8 @@ int main(int argc, char** argv )
 	FeatureExtractor *ext = new ComFeature();
     BOW *bow = new BOW();
 	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
-    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
-    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
+    //dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
+    //dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
     //dynamic_cast<ComFeature*>(ext)->addFeature(new ShapeDescriptor);
     //bow->train(imagepath, imagelists);
     //bow->saveToFile(outputvoc);
@@ -55,7 +55,7 @@ int main(int argc, char** argv )
         sprintf(fullpath, "%s%s", imagepath, filename);
         im = imread(fullpath, 1);
         ext->calc(im, feat);
-        filename[len - 6] = '\0';
+        //filename[len - 6] = '\0';
         fprintf(fout, "%s", filename);
         for (int i = 0; i < feat.dim(); ++i)
             fprintf(fout, " %f", (float)feat[i]);

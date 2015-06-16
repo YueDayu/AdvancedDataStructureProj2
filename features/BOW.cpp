@@ -11,7 +11,8 @@ using namespace saliency;
 using namespace std;
 
 void BOW::calc(cv::Mat & img, Feature & feat){
-    Mat rimg = img;
+    Mat rimg;
+    img.copyTo(rimg);
 //    if (img.rows > 100 && img.cols > 100)
 //        rimg = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
 //    else

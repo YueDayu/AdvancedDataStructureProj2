@@ -13,7 +13,6 @@ const int numiter = 3;
 void ImgBGReplace(cv::Mat src, cv::Mat& dest)
 {
     ZImage* pic = preprocessing(src);
-    waitKey();
     pic->HSVChange();
     pic->RegionGrowingOriginal();
     for (int i = 0; i < numiter; i++)
@@ -37,7 +36,7 @@ void ImgBGReplace(cv::Mat src, cv::Mat& dest)
             if (isbg[pic->object[i][j]]) dest.at<Vec3b>(i, j) = Vec3b(0, 0, 0);
             else dest.at<Vec3b>(i, j) = src.at<Vec3b>(i, j);
         }
-    //imshow("", dest);
-    //waitKey();
+    imshow("", dest);
+    waitKey();
     delete pic;
 }

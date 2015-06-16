@@ -16,6 +16,7 @@ void ShapeDescriptor::calc(cv::Mat &img, Feature &feat) {
         pic->RegionGrowingIteration();
     pic->GetFeature();
     pic->OutputFeature(feat.m_data);
+    if (feat.dim() > numdim) feat.m_data.resize(numdim);
     delete pic;
     int numadd = numdim - feat.dim();
     for (int i = 0; i < numadd; ++i) feat.push_back(0);
