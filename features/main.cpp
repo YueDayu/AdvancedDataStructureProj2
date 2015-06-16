@@ -28,12 +28,13 @@ int main(int argc, char** argv )
     char filename[100], fullpath[100];
 	FeatureExtractor *ext = new ComFeature();
     BOW *bow = new BOW();
-	//dynamic_cast<ComFeature*>(ext)->addFeature(bow);
-    //dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
-    dynamic_cast<ComFeature*>(ext)->addFeature(new ShapeDescriptor);
+	dynamic_cast<ComFeature*>(ext)->addFeature(bow);
+    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorMean());
+    dynamic_cast<ComFeature*>(ext)->addFeature(new ColorHist(6, 2, 2));
+    //dynamic_cast<ComFeature*>(ext)->addFeature(new ShapeDescriptor);
     //bow->train(imagepath, imagelists);
     //bow->saveToFile(outputvoc);
-    //bow->loadFromFile(outputvoc);
+    bow->loadFromFile(outputvoc);
     //FeatureExtractor *ext = new ColorPerspec;
     Feature feat;
     Mat im;
@@ -43,7 +44,6 @@ int main(int argc, char** argv )
     fscanf(fin, "%d", &numimg);
     fgets(filename, 100, fin);
     fprintf(fout, "%d\n", numimg);
-    int mdim = 0;
     while (!feof(fin))
     {
         fgets(filename, 100, fin);
@@ -57,7 +57,6 @@ int main(int argc, char** argv )
         ext->calc(im, feat);
         filename[len - 6] = '\0';
         fprintf(fout, "%s", filename);
-        mdim = max(mdim, feat.dim());
         for (int i = 0; i < feat.dim(); ++i)
             fprintf(fout, " %f", (float)feat[i]);
         fprintf(fout, "\n");

@@ -11,24 +11,32 @@ using namespace saliency;
 using namespace std;
 
 void BOW::calc(cv::Mat & img, Feature & feat){
-    Mat rimg;
-    if (img.rows > 100 && img.cols > 100)
-        rimg = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
-    else
-        rimg = img;
+    Mat rimg = img;
+//    if (img.rows > 100 && img.cols > 100)
+//        rimg = Mat(img, Range(img.rows/5, img.rows*4/5), Range(img.cols/5, img.cols*4/5));
+//    else
+//        rimg = img;
     if (rimg.cols > 300 || rimg.rows > 300)
     {
         double fr = min(300.0/rimg.rows, 300.0/rimg.cols);
         resize(rimg, rimg, Size(), fr, fr, INTER_AREA);
     }
-    GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
+    ImgBGReplace(rimg, rimg);
+    //GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
     vector<KeyPoint> kps;
     m_fd->detect(rimg, kps);
     Mat res;
     m_ext->compute(rimg, kps, res);
-    feat.clear();
-    for (int i = 0; i < m_ext->descriptorSize(); ++i)
-        feat.push_back((double)res.at<uchar>(0, i)/kps.size());
+    if (kps.size()) {
+        feat.clear();
+        for (int i = 0; i < m_ext->descriptorSize(); ++i)
+            feat.push_back((double) res.at<uchar>(0, i) / max(kps.size(), 1U));
+    }
+    else {
+        feat.clear();
+        for (int i = 0; i < m_ext->descriptorSize(); ++i)
+            feat.push_back(0);
+    }
 }
 
 void BOW::loadFromFile(const char *filename) {
@@ -100,10 +108,10 @@ void BOW::train(const char *imagepath, const char *imagelists) {
         //GaussianBlur(img, img, Size(5, 5), 1.5, 1.5, BORDER_REPLICATE);
         ImgBGReplace(img, img);
         m_fd->detect(img, kps);
-        Mat show;
-        drawKeypoints(img, kps, show);
-        imshow("", show);
-        waitKey();
+//        Mat show;
+//        drawKeypoints(img, kps, show);
+//        imshow("", show);
+//        waitKey();
         desext->compute(img, kps, desp);
         static int idx[5000];
         for (int j = 0; j < desp.rows; ++j) idx[j] = j;

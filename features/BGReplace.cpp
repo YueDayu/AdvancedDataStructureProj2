@@ -37,7 +37,7 @@ void ImgBGReplace(cv::Mat src, cv::Mat& dest)
             if (isbg[pic->object[i][j]]) dest.at<Vec3b>(i, j) = Vec3b(0, 0, 0);
             else dest.at<Vec3b>(i, j) = src.at<Vec3b>(i, j);
         }
-    imshow("", dest);
-    waitKey();
+    //imshow("", dest);
+    //waitKey();
     delete pic;
 }
